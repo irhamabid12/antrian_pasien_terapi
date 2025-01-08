@@ -17,7 +17,7 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid mx-3">
              <!-- Logo dan Nama Pondok -->
-            <a class="navbar-brand d-flex align-items-center" href="#">
+            <a class="navbar-brand d-flex align-items-center" href="{{url('/beranda')}}">
               <img src="{{ asset('assets/images/logo.jpg') }}" alt="Logo" width="50" height="50" class="d-inline-block align-text-center p-1">
               <div class="ms-2 text-wrap">
                 <span class="fw-bold d-block fs-5 text-md-nowrap">Pondok Pengobatan</span>

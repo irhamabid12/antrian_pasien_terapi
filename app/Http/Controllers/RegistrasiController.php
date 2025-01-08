@@ -4,20 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class RegistrasiController extends Controller
 {
     public function index() {
-        return view('register');
+        return view('admin.register');
     }
 
     public function insert(Request $request) {
-        User::create([
-            'name' => $request->name,
-            'username' => $request->username,
-            'is_active' => true,
-            'password' => bcrypt($request->password)
-        ]);
+        // dd($request->all());
+        $regis = User::find($request->id ?? 0) ?? new User;
+        $regis->name = $request->name ?? null;
+        $regis->username = $request->username ?? null;
+        $regis->password = Hash::make($request->password ?? null);
+        $regis->role = $request->role ?? 'admin';
+        $regis->is_active = true;
+        $regis->save();
         
         return response()->json([
             'success' => true

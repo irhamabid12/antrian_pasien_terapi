@@ -17,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/registrasiakun/insert', [\App\Http\Controllers\RegistrasiController::class, 'insert'])->name('registrasiakun.insert');

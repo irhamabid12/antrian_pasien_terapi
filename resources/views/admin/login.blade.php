@@ -20,7 +20,7 @@
                             </div>
                             <div class="col-6">
                                 <h1 class="fs-4 card-title fw-bold mb-4">Login</h1>
-                                <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
+                                <form method="POST" class="needs-validation" novalidate="" autocomplete="off" id="form-login-admin" action="{{ route('action-login') }}">
                                     @csrf
                                     <div class="mb-3">
                                         <label class="mb-2 text-muted" for="email">Username</label>
@@ -80,6 +80,6 @@
                     form.classList.add('was-validated')
                 }, false)
             })
-    })()
+    })();
 </script>
 @endsection

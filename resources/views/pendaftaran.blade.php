@@ -65,10 +65,19 @@
                     <div class="mb-3 row">
                         <label for="no_wa" class="col-sm-2 col-form-label">Nomor WA yang dapat dihubungi <span class="text-danger">*</span></label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="no_wa" name="no_wa" placeholder="Ketikan Nomor WA" required>
+                          <input type="phone" class="form-control" id="no_wa" name="no_wa" placeholder="Ketikan Nomor WA" required>
                           <div class="invalid-feedback">
                             Nomor WA harus diisi dan minimal 11 digit!
                           </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="rencana_pemeriksaan" class="col-sm-2 col-form-label">Rencana Pemeriksaan <span class="text-danger">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" id="rencana_pemeriksaan" name="rencana_pemeriksaan" placeholder="Ketikan Nama" required>
+                            <div class="invalid-feedback">
+                                Nama harus diisi!
+                            </div>
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -105,7 +114,7 @@
 
     <script>
         $('input[name="is_sendiri"]').on('change', function() {
-            if (this.value == 'true') {
+            if (this.value == 'false') {
                 $('#pasien_lain').removeClass('d-none');
             } else {
                 $('#pasien_lain').addClass('d-none');
@@ -190,12 +199,23 @@
                 success: function(response) {
                     if (response.success == true) {
                         Swal.fire({
-                            title: 'Berhasil!',
-                            text: 'Pasien berhasil didaftarkan!',
+                            title: '<h2>Berhasil!</h2>',
+                            html: `
+                                <p><b>Nomor Antrian Anda</b></p>
+                                <h1 style="font-size: 60px; font-weight: bold; color: #28a745;">${response.nomor_antrian}</h1>
+                            `,
                             icon: 'success',
                             confirmButtonText: 'OK'
                         });
+                    } else {
+                        Swal.fire({
+                            title: '<h2>Opss!</h2>',
+                            text: response.message,
+                            icon: 'info',
+                            confirmButtonText: 'OK'
+                        });
                     }
+
                 }, error : function(response) {
                     console.log(response);
                 }

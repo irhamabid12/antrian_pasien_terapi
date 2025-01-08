@@ -29,10 +29,27 @@ Route::prefix('pendaftaran')->name('pendaftaran.')->group(function () {
     Route::post('/insert', [\App\Http\Controllers\pendaftaranController::class, 'insert'])->name('insert');
 });
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::prefix('login')->name('login.')->group(function () {
-        Route::get('/index', [\App\Http\Controllers\LoginController::class, 'index'])->name('index');
+Route::get('/login', function () {
+    return view('admin.login');
+})->name('login');
+
+Route::post('/action-login', [\App\Http\Controllers\LoginController::class, 'actionLogin'])->name('action-login');
+
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::get('/logout', [\App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
+
+    Route::prefix('beranda')->name('beranda.')->group(function () {
+        Route::get('/index', [\App\Http\Controllers\BerandaAdminController::class, 'index'])->name('index');
+        Route::get('/get-data-pasien', [\App\Http\Controllers\BerandaAdminController::class, 'get_data_pasien'])->name('get-data-pasien');
+        Route::post('/update-status-pemeriksaan', [\App\Http\Controllers\BerandaAdminController::class, 'update_status_pasien'])->name('update-status-pemeriksaan');
     });
+
+    Route::prefix('kuota')->name('kuota.')->group(function () {
+        Route::get('/index', [\App\Http\Controllers\KuotaController::class, 'index'])->name('index');
+        Route::post('/update-kuota', [\App\Http\Controllers\KuotaController::class, 'updateKuota'])->name('update-kuota');
+    });
+    
+
 
     Route::prefix('registrasi')->name('registrasi.')->group(function () {
         Route::get('/index', [\App\Http\Controllers\RegistrasiController::class, 'index'])->name('index');
