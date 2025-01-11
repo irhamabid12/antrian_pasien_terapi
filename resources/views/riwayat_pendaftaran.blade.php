@@ -15,28 +15,28 @@
                                 <table class="table" style="border-color: transparent">
                                     <tbody>
                                         <tr>
-                                            <th width="20%">Nama Pasien</th>
-                                            <td>: {{ $item->nama_pasien ?? '-' }}</td>
+                                            <th class="text-start" width="20%">Nama Pasien</th>
+                                            <td class="text-start">: {{ $item->nama_pasien ?? '-' }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Alamat</th>
-                                            <td>: {{ $item->alamat_pasien ?? '-' }}</td>
+                                            <th class="text-start">Alamat</th>
+                                            <td class="text-start">: {{ $item->alamat_pasien ?? '-' }}</td>
                                         </tr>
                                         <tr>
-                                            <th>No. Telepon</th>
-                                            <td>: {{ $item->no_telp_pasien ?? '-' }}</td>
+                                            <th class="text-start">No. Telepon</th>
+                                            <td class="text-start">: {{ $item->no_telp_pasien ?? '-' }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Tanggal Periksa</th>
-                                            <td>: {{ \Carbon\Carbon::parse($item->tanggal_periksa)->isoFormat('dddd, D MMMM Y') }}</td>
+                                            <th class="text-start">Tanggal Periksa</th>
+                                            <td class="text-start">: {{ \Carbon\Carbon::parse($item->tanggal_periksa)->isoFormat('dddd, D MMMM Y') }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Keluhan</th>
-                                            <td>: {{ $item->keluhan_pasien ?? '-' }}</td>
+                                            <th class="text-start">Keluhan</th>
+                                            <td class="text-start">: {{ $item->keluhan_pasien ?? '-' }}</td>
                                         </tr>
                                         <tr>
-                                            <th>No. Antrian</th>
-                                            <td>: {{ $item->nomor_antrian ?? '-' }}</td>
+                                            <th class="text-start">No. Antrian</th>
+                                            <td class="text-start">: {{ $item->nomor_antrian ?? '-' }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
