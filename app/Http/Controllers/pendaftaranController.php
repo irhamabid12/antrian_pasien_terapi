@@ -115,7 +115,7 @@ class pendaftaranController extends Controller
     }
 
     public function get_no_antrian ($tanggal_periksa) {
-        $antrian = PendaftaranT::where('tanggal_periksa', $tanggalPeriksa)
+        $antrian = PendaftaranT::where('tanggal_periksa', $tanggal_periksa)
                 ->orderBy('nomor_antrian', 'desc')
                 ->first();
 
