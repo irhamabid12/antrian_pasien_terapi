@@ -33,19 +33,34 @@
             </div>
         </div>
 
-        <div class="card shadow mt-3 ">
+        <div class="card shadow mt-3 mb-3">
             <div class="card-header">
                 <h4 class="card-title fw-bold">Data Pasien</h4>
             </div>
-            <div class="card-body text-center">
-                <div>
-                    <input type="text" class="form-control" placeholder="Cari Pasien" id="cari_pasien">
+            <div class="card-body text-center" style="overflow: auto">
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="row">
+                            <label for="cari_pasien" class="col-form-label fw-bold col-4 text-start">Nama Pasien</label>
+                            <div class="col-8">
+                                <input type="text" class="form-control" placeholder="Cari Pasien" id="cari_pasien">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <label for="tgl_praktik" class="col-form-label fw-bold col-4 text-start">Tanggal Praktik</label>
+                            <div class="col-8">
+                                <input type="date" class="form-control" id="tgl_praktik">
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped table-hover" id="table-pasien">
                         <thead>
                             <tr>
-                                <th>No</th>
+                                <th width="5%">No</th>
                                 <th>Nama</th>
                                 <th>No Antrian</th>
                                 <th>No Wa</th>
@@ -68,11 +83,41 @@
 
     <script>
         $(document).ready(function() {
+            getAntrian();
+
+            setInterval(function() {
+                getAntrian();
+            }, 5000);
+        });
+        function getAntrian() {
+            $.ajax({
+                url: "{{ route('get_antrian') }}",
+                method: "GET",
+                dataType: "JSON",
+                success: function(response) {
+                    $('#antrian_pasien').text(response.last_antrian ?? 0);
+                    $('#jumlah_pasien').text(response.jumlah_pasien ?? 0);
+                }
+            });
+        }
+    </script>
+    
+    <script>
+        $(document).ready(function() {
             getPasien();
 
             $('#cari_pasien').on('input', function() {
                 getPasien();
-            })
+            });
+
+            $('#tgl_praktik').flatpickr({
+                dateFormat: "d-m-Y",
+                defaultDate: new Date()
+            });
+        });
+
+        $('#tgl_praktik').on('change', function() {
+            getPasien();
         });
         
         function formatDate(dateString) {
@@ -90,7 +135,8 @@
                 type: 'GET',
                 dataType: 'JSON',
                 data: {
-                    cari_pasien: $('#cari_pasien').val()
+                    cari_pasien: $('#cari_pasien').val(),
+                    tgl_praktik: $('#tgl_praktik').val()
                 },
                 success: function(response) {
                     if (response.data.length > 0) {
@@ -109,7 +155,7 @@
                                     <td>${item.status_pasien == true ? 'Baru' : 'Kontrol'}</td>
                                     <td>${item.status_periksa ?? '-'}</td>
                                     <td>
-                                        <button onclick="updateStatusPemeriksaan(${item.pendaftaran_id})" class="btn btn-sm btn-primary" ${item.status_periksa !== "Dalam Antrian" ? 'disabled' : ''}>Mulai Periksa</a>
+                                        <button onclick="updateStatusPemeriksaan(${item.pendaftaran_id}, '${item.status_periksa}')" class="btn btn-sm ${item.status_periksa == "Dalam Antrian" ? 'btn-primary' : 'btn-danger'}">${item.status_periksa == "Dalam Antrian" ? 'Mulai Periksa' : 'Selesai Periksa'}</a>
                                     </td>
                                 </tr>
                             `);
@@ -127,14 +173,15 @@
             });
         }
 
-        function updateStatusPemeriksaan(pendaftaran_id) {
+        function updateStatusPemeriksaan(pendaftaran_id, status_periksa) {
             $.ajax({
                 url: '{{ route('admin.beranda.update-status-pemeriksaan') }}',
                 type: 'POST',
                 dataType: 'JSON',
                 data: {
                     _token: '{{ csrf_token() }}',
-                    pendaftaran_id: pendaftaran_id
+                    pendaftaran_id: pendaftaran_id,
+                    status_periksa: status_periksa
                 },
                 success: function(response) {
                     if (response.success == true) {

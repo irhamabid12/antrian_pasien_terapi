@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\KuotaJadwalOperasionalM;
 
@@ -9,46 +10,35 @@ class KuotaController extends Controller
 {
     public function index()
     {
-        return view('admin.kuota.index');
+        $data = KuotaJadwalOperasionalM::whereDate('tanggal', '>=', Carbon::now()->format('Y-m-d'))->get();
+        
+        return view('admin.kuota.index', compact('data'));
     }
 
-    public function updateKuota(Request $request)
+    public function simpan_jadwal(Request $request)
     {
-        // Loop through days 1 to 7
-        for ($i = 1; $i <= 7; $i++) {
-            $hariKey = "hari{$i}";
-            $switchKey = "switch" . ucfirst(strtolower($this->getHari($i)));
-            $kuotaKey = "kuota" . ucfirst(strtolower($this->getHari($i)));
+        // dd($request->all());
 
-            // Retrieve values from the request
-            $hari = $request->input($hariKey);
-            $statusPraktek = $request->has($switchKey) ? 1 : 0; // Convert "on" to 1, otherwise 0
-            $kuota = $request->input($kuotaKey) ?: 0; // Default to 0 if null
+        foreach ($request->schedule as $key => $value) {
+            $date = $value['date'];
+            $quota = $value['quota'];
+            $operational = $value['operational'];
 
-            // Update the record in the database
-            $updateKuota = KuotaJadwalOperasionalM::find($hari);
-            $updateKuota->is_open = $statusPraktek ?? 0;
-            $updateKuota->jumlah_kuota = $kuota ?? 0;
-            $updateKuota->save();
-            
+            // Cek apakah tanggal sudah ada di database
+            $existingJadwal = KuotaJadwalOperasionalM::where('tanggal', Carbon::parse($date)->format('Y-m-d'))->first();
+
+            if ($existingJadwal) {
+                // Jika tanggal sudah terdaftar, skip iterasi ini
+                continue;
+            }
+
+            $jadwal = KuotaJadwalOperasionalM::find($request->jadwal_id ?? 0) ?? new KuotaJadwalOperasionalM;
+            $jadwal->tanggal = $date != null ? Carbon::parse($date)->format('Y-m-d') : null;
+            $jadwal->operasional = $operational == 1 ? true : false;
+            $jadwal->jumlah_kuota = $quota ?? 0;
+            $jadwal->save();
         }
 
         return response()->json(['success' => true]);
-    }
-
-    // Helper function to map hari index to names
-    private function getHari($index)
-    {
-        $days = [
-            1 => 'Senin',
-            2 => 'Selasa',
-            3 => 'Rabu',
-            4 => 'Kamis',
-            5 => 'Jumat',
-            6 => 'Sabtu',
-            7 => 'Minggu',
-        ];
-
-        return $days[$index] ?? '';
     }
 }

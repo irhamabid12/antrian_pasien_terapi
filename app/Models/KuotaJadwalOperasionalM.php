@@ -10,7 +10,7 @@ class KuotaJadwalOperasionalM extends Model
     use HasFactory;
 
     protected $table = 'kuota_jadwal_operasional';
-    protected $primaryKey = 'kuota_id';
+    protected $primaryKey = 'jadwal_id';
     
     public $timestamps = false;
 }

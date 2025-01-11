@@ -30,6 +30,24 @@
             </div>
         </div>
 
+        <div class="card shadow mt-3">
+            <div class="card-body text-center" style="overflow: auto">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="table-list-antrian-pasien">
+                        <thead>
+                            <tr>
+                                <th width="5%">No</th>
+                                <th>Nama</th>
+                                <th>No Antrian</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
         <div class="card shadow mt-3 ">
             <div class="card-body text-center">
                 <h3 class="card-title fw-bold">Pondok Pengobatan Gus Arya</h3>
@@ -47,6 +65,48 @@
         </div>
     </div>
 
+    <script>
+        $(document).ready(function() {
+            getAntrian();
+
+            setInterval(function() {
+                getAntrian();
+            }, 5000);
+        });
+        function getAntrian() {
+            $.ajax({
+                url: "{{ route('get_antrian') }}",
+                method: "GET",
+                dataType: "JSON",
+                success: function(response) {
+                    if (response.data_pasien.length > 0) {
+                        $('#table-list-antrian-pasien tbody').empty();
+                        let no = 1;
+                        response.data_pasien.forEach(function(item) {
+                            $('#table-list-antrian-pasien tbody').append(`
+                                <tr>
+                                    <td>${no}</td>
+                                    <td>${item.nama_pasien ?? '-'}</td>
+                                    <td>${item.nomor_antrian ?? '-'}</td>
+                                </tr>
+                            `);
+                            no++;
+                        });
+                    } else {
+                        $('#table-list-antrian-pasien tbody').empty();
+                        $('#table-list-antrian-pasien tbody').append(`
+                            <tr>
+                                <td colspan="10" class="text-center">Tidak ada data pasien</td>
+                            </tr>
+                        `);
+                    }
+
+                    $('#antrian_pasien').text(response.last_antrian ?? 0);
+                    $('#jumlah_pasien').text(response.jumlah_pasien ?? 0);
+                }
+            });
+        }
+    </script>
     
 @endsection
 

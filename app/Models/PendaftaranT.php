@@ -13,4 +13,8 @@ class PendaftaranT extends Model
     protected $primaryKey = 'pendaftaran_id';
 
     public $timestamps = false;
+
+    public function pasienlain() {
+        return $this->hasMany(PendaftaranT::class, 'pasien_parent_id', 'pendaftaran_id');
+    }
 }

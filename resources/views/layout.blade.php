@@ -11,6 +11,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <!-- Tambahkan CSS Flatpickr -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <style>
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;        }
+    </style>
 </head>
 
 <body style="background-color: #b4c3d1;">
@@ -31,11 +40,33 @@
             <div class="collapse navbar-collapse ms-auto" id="navbarNavDropdown">
                 <ul class="navbar-nav ms-auto fw-medium">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="beranda">Beranda</a>
+                        <a class="nav-link active" aria-current="page" href="{{url('/beranda')}}"><i class="bi bi-house-door-fill"></i> Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="pendaftaran" onclick="getAntrian()">Pendaftaran Pasien</a>
+                        <a class="nav-link" href="{{url('pasien/pendaftaran/index')}}" onclick="getAntrian()"><i class="bi bi-pencil-square"></i> Pendaftaran Pasien</a>
                     </li>
+                    
+                    @auth
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url('pasien/pendaftaran/riwayat')}}"><i class="bi bi-table"></i> Riwayat Pendaftaran</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-workspace"></i> {{ Auth::user()->name }}
+                            </a>
+                            <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url('pasien/logout') }}"><i class="bi bi-box-arrow-in-right"></i> logout</a></li>
+                            </ul>
+                        </li>
+                    @endauth
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/login') }}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/registrasi/index') }}">Daftar</a>
+                        </li>
+                    @endguest
                 </ul>
             </div>
         </div>
@@ -44,27 +75,8 @@
     @yield('content')
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-    <script>
-        $(document).ready(function() {
-            getAntrian();
-
-            setInterval(function() {
-                getAntrian();
-            }, 5000);
-        });
-        function getAntrian() {
-            $.ajax({
-                url: "{{ route('get_antrian') }}",
-                method: "GET",
-                dataType: "JSON",
-                success: function(response) {
-                    $('#antrian_pasien').text(response.last_antrian ?? 0);
-                    $('#jumlah_pasien').text(response.jumlah_pasien ?? 0);
-                }
-            });
-        }
-    </script>
+    <!-- Tambahkan JS Flatpickr -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </body>
 
 </html>

@@ -16,7 +16,11 @@ class LoginController extends Controller
         ];
 
         if (Auth::Attempt($data)) {
-            return redirect(url('admin/beranda/index'));
+            if(auth()->user()->role == 'admin'){
+                return redirect(url('admin/beranda/index'));
+            } else {
+                return redirect(url('pasien/pendaftaran/index'));
+            }
         }else{
             Session::flash('error', 'Email atau Password Salah');
             return redirect(url('login'));
@@ -27,5 +31,12 @@ class LoginController extends Controller
     {   
         Auth::logout();
         return redirect(url('login'));
+    }
+
+
+    public function logoutPasien(Request $request)
+    {   
+        Auth::logout();
+        return redirect(url('/beranda'));
     }
 }

@@ -7,10 +7,10 @@
     <div class="container mt-3">
         <div class="card shadow mt-3 ">
             <div class="card-header">
-                <h5 class="card-title fw-bold">Pengaturan Kouta Pasien dan Jadwal Operasional</h5>
+                <h5 class="card-title fw-bold">Pengaturan Jadwal Operasional</h5>
             </div>
             <div class="card-body text-center">
-                <div class="table-responsive">
+                {{-- <div class="table-responsive">
                     <form id="form-kuota" method="POST">
                         @csrf
                         <table class="table">
@@ -154,38 +154,195 @@
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
+                </div> --}}
+
+                 <!-- Input Rentang Tanggal -->
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <label for="start_date" class="form-label fw-bold">Tanggal Mulai</label>
+                        <input type="date" class="form-control" id="start_date" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="end_date" class="form-label fw-bold">Tanggal Selesai</label>
+                        <input type="date" class="form-control" id="end_date" required>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-end">
+                        <button id="generate_schedule" class="btn btn-primary w-100">Buat Rencana Jadwal</button>
+                    </div>
                 </div>
+
+                <!-- Daftar Hari (Akan Ditampilkan Setelah Klik "Buat Rencana Jadwal") -->
+                <div id="schedule_container" class="d-none">
+                    <table class="table table-bordered">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Hari</th>
+                                <th>Kuota Pasien</th>
+                                <th>Operasional</th>
+                            </tr>
+                        </thead>
+                        <tbody id="schedule_table_body">
+                            <!-- Data akan di-generate oleh JavaScript -->
+                        </tbody>
+                    </table>
+
+                    <!-- Tombol Simpan -->
+                    <div class="d-flex justify-content-end mt-3">
+                        <button id="save_schedule" class="btn btn-success">Simpan Jadwal</button>
+                    </div>
             </div>
-            <!-- Icon Bootstrap dengan Opacity -->
+        </div>
+    </div>
+
+    <div class="card shadow mt-3 ">
+        <div class="card-header">
+            <h5 class="card-title fw-bold">Jadwal Operasional</h5>
+        </div>
+        <div class="card-body">
+           <table class="table table-bordered table-striped text-center">
+               <thead>
+                   <tr>
+                       <th>Tanggal</th>
+                       {{-- <th>Hari</th> --}}
+                       <th>Kuota Pasien</th>
+                       <th>Operasional</th>
+                   </tr>
+               </thead>
+               <tbody>
+                   @foreach ($data as $item)
+                       <tr>
+                           <td>{{ !empty($item->tanggal) ? \Carbon\Carbon::parse($item->tanggal)->isoFormat('dddd, D MMMM Y') : '-' }}</td>
+                           {{-- <td>{{ $item->hari }}</td> --}}
+                           <td>{{ $item->jumlah_kuota }}</td>
+                           <td>{{ $item->operasional ? 'Buka' : 'Tutup' }}</td>
+                       </tr>
+                       
+                   @endforeach
+               </tbody>
+           </table>
         </div>
     </div>
 
     <script>
-         $('#form-kuota').on('submit', function(event) {
-            event.preventDefault();
-            var formData = new FormData(this);
-            $.ajax({
-                url: "{{ route('admin.kuota.update-kuota') }}",
-                method: "POST",
-                data: formData,
-                dataType: "JSON",
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    if (response.success == true) {
-                        Swal.fire({
-                            title: '<h2>Berhasil!</h2>',
-                            text: 'Data berhasil diubah!',
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        });
-                    }
+        document.getElementById('save_schedule').addEventListener('click', function () {
+            const rows = document.querySelectorAll('#schedule_table_body tr');
+            const scheduleData = [];
 
-                }, error : function(response) {
-                    console.log(response);
+            rows.forEach(row => {
+                const date = row.cells[0].innerText;
+                const day = row.cells[1].innerText;
+                const quota = row.querySelector('input[type="number"]').value;
+                const operational = row.querySelector('input[type="checkbox"]').checked ? 1 : 0;
+
+                scheduleData.push({ date, day, quota, operational });
+            });
+
+            console.log(scheduleData); // Kirim data ke server dengan AJAX
+
+            // Contoh AJAX untuk menyimpan data
+            $.ajax({
+                url: '{{ route('admin.kuota.simpan-jadwal') }}',
+                method: 'POST',
+                data: { 
+                    schedule: scheduleData,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function (response) {
+                    if (response.success) {
+                        alert('Jadwal berhasil disimpan.');
+                        location.reload();
+                    } else {
+                        alert('Gagal menyimpan jadwal.');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan.');
                 }
             });
+        //     fetch('/admin/kuota/simpan-jadwal', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        //         },
+        //         body: JSON.stringify({ schedule: scheduleData })
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         if (data.success) {
+        //             alert('Jadwal berhasil disimpan.');
+        //             location.reload();
+        //         } else {
+        //             alert('Gagal menyimpan jadwal.');
+        //         }
+        //     })
+        //     .catch(error => {
+        //         console.error('Error:', error);
+        //         alert('Terjadi kesalahan.');
+        //     });
         });
+
+    </script>
+
+    <script>
+        document.getElementById('generate_schedule').addEventListener('click', function () {
+            const startDateInput = document.getElementById('start_date').value;
+            const endDateInput = document.getElementById('end_date').value;
+
+            if (!startDateInput || !endDateInput) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Silakan pilih rentang tanggal terlebih dahulu.',
+                });
+                
+                return;
+            }
+
+            const startDate = new Date(startDateInput);
+            const endDate = new Date(endDateInput);
+
+            if (startDate > endDate) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Tanggal mulai harus lebih awal dari tanggal selesai.',
+                });
+                return;
+            }
+
+            const scheduleContainer = document.getElementById('schedule_container');
+            const scheduleTableBody = document.getElementById('schedule_table_body');
+
+            // Kosongkan tabel sebelumnya jika ada
+            scheduleTableBody.innerHTML = '';
+
+            // Generate daftar hari dalam rentang tanggal
+            for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
+                const dateString = d.toISOString().split('T')[0]; // Format: YYYY-MM-DD
+                const dayName = new Intl.DateTimeFormat('id-ID', { weekday: 'long' }).format(d); // Nama hari
+
+                // Tambahkan baris ke tabel
+                scheduleTableBody.innerHTML += `
+                    <tr>
+                        <td>${dateString}</td>
+                        <td>${dayName}</td>
+                        <td>
+                            <input type="number" class="form-control" name="kuota[${dateString}]" placeholder="Kuota" min="0" required>
+                        </td>
+                        <td class="text-center">
+                            <input type="checkbox" name="operasional[${dateString}]" value="1" checked>
+                        </td>
+                    </tr>
+                `;
+            }
+
+            // Tampilkan tabel
+            scheduleContainer.classList.remove('d-none');
+        });
+
     </script>
 
     

@@ -53,8 +53,8 @@
                         </div>
                     </div>
                     <div class="card-footer py-3 border-0">
-                        <div class="text-center">
-                            Belum punya akun? <a href="/admin/registrasi/index" class="text-dark">Daftar</a>
+                        <div class="text-center fw-bold">
+                            Belum punya akun? <a href="{{ url('registrasi/index') }}" class="text-primary">Daftar</a>
                         </div>
                     </div>
                 </div>
