@@ -10,7 +10,7 @@
                 <h4 class="card-title fw-bold mb-3 text-center">Riwayat Pendaftaran Pasien</h4>
                 @if ($data_riwayat->isEmpty() == false)
                     @foreach ($data_riwayat as $item)
-                        <div class="card mb-3">
+                        <div class="card mb-3"> 
                             <div class="card-body text-start">
                                 <table class="table" style="border-color: transparent">
                                     <tbody>

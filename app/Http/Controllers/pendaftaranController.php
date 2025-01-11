@@ -31,7 +31,7 @@ class pendaftaranController extends Controller
     }
     
     public function insert(Request $request) {
-        
+         
         if (!$request->rencana_pemeriksaan) {
             return response()->json([
                 'success' => false,
