@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <div class="card shadow mt-3">
+        <div class="card shadow mt-3" style="height: 300px">
             <div class="card-body text-center" style="overflow: auto">
                 <div class="table-responsive">
                     <table class="table table-striped table-hover" id="table-list-antrian-pasien">
@@ -48,14 +48,12 @@
             </div>
         </div>
 
-        <div class="card shadow mt-3 ">
+        <div class="card shadow mt-3">
             <div class="card-body text-center">
                 <h3 class="card-title fw-bold">Pondok Pengobatan Gus Arya</h3>
-                <div class="ratio ratio-16x9">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.103852131728!2d109.72361807442098!3d-6.9970496685278025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e70230015aafcd5%3A0x2f73c776c22a73ca!2sPONDOK%20PENGOBATAN%20GUS%20ARYA!5e0!3m2!1sid!2sid!4v1736236239102!5m2!1sid!2sid"style="border:0;"
-                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
+                <iframe width="100%" height="300"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.103852131728!2d109.72361807442098!3d-6.9970496685278025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e70230015aafcd5%3A0x2f73c776c22a73ca!2sPONDOK%20PENGOBATAN%20GUS%20ARYA!5e0!3m2!1sid!2sid!4v1736236239102!5m2!1sid!2sid"style="border:0;"
+                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 <p class="card-text mt-3">
                     <strong>Alamat:</strong> Desa krompeng RT 03/02, Kecamatan Talun, kabupaten Pekalongan.<br>
                     <strong>Informasi/Konsultasi:</strong> 0856-7223-499<br>

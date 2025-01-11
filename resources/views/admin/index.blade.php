@@ -62,7 +62,7 @@
                             <tr>
                                 <th width="5%">No</th>
                                 <th>Nama</th>
-                                <th>No Antrian</th>
+                                <th>No. Antrian</th>
                                 <th>No Wa</th>
                                 <th>Jumlah Pasien</th>
                                 <th>Tlg. Pendaftaran</th>
@@ -129,6 +129,17 @@
             return `${day}-${month}-${year}`; // Format: d-m-Y
         }
 
+        function formatDateTime(dateString) {
+            if (!dateString) return '-';
+            const date = new Date(dateString);
+            const day = String(date.getDate()).padStart(2, '0'); // Menambahkan leading zero jika tanggal kurang dari 10
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Menambahkan leading zero pada bulan
+            const year = date.getFullYear();
+            const hours = String(date.getHours()).padStart(2, '0'); // Menambahkan leading zero jika jam kurang dari 10
+            const minutes = String(date.getMinutes()).padStart(2, '0'); // Menambahkan leading zero pada menit
+            return `${day}-${month}-${year} ${hours}:${minutes}`; // Format: d-m-Y H:i
+        }
+
         function getPasien() {
             $.ajax({
                 url: '{{ route('admin.beranda.get-data-pasien') }}',
@@ -150,8 +161,8 @@
                                     <td>${item.nomor_antrian ?? '-'}</td>
                                     <td>${item.no_telp_pasien ?? '-'}</td>
                                     <td>${item.is_pasien_sendiri == true ? '1' : (item.jumlah_pasien_lain ?? '0')}</td>
-                                    <td>${item.created_at ?? '-'}</td>
-                                    <td>${formatDate(item.tanggal_periksa) ?? '-'}</td>
+                                    <td>${item.created_at != null ? formatDateTime(item.created_at) : '-'}</td>
+                                    <td>${item.tanggal_periksa != null ? formatDate(item.tanggal_periksa) : '-'}</td>
                                     <td>${item.status_pasien == true ? 'Baru' : 'Kontrol'}</td>
                                     <td>${item.status_periksa ?? '-'}</td>
                                     <td>
