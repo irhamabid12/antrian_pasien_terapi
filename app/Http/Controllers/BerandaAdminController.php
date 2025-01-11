@@ -16,7 +16,7 @@ class BerandaAdminController extends Controller
     public function get_data_pasien( Request $request )
     {
         
-        $data = PendaftaranT::orderBy('created_at', 'desc');
+        $data = PendaftaranT::orderBy('nomor_antrian', 'asc');
 
         if (request()->has('cari_pasien') == true && request('cari_pasien') != null) {
             $data = $data->where('nama_pasien', 'like', '%' . request('cari_pasien') . '%');

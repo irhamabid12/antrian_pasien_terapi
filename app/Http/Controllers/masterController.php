@@ -19,7 +19,7 @@ class masterController extends Controller
 
         // Hitung jumlah pasien dan ambil antrian terakhir
         $last_antrian = $dataPasien->first()->nomor_antrian ?? null;
-        $jumlah_pasien = PendaftaranT::whereDate('tanggal_periksa', $today)->count();
+        $jumlah_pasien = $dataPasien->count();
 
         // dd($dataPasien);
         return response()->json([
