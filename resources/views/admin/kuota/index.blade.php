@@ -250,10 +250,20 @@
                 },
                 success: function (response) {
                     if (response.success) {
-                        alert('Jadwal berhasil disimpan.');
+                        Swal.fire({
+                            title: 'Berhasil!',
+                            text: 'Jadwal berhasil disimpan.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        })
                         location.reload();
                     } else {
-                        alert('Gagal menyimpan jadwal.');
+                        Swal.fire({
+                            title: 'Gagal!',
+                            text: 'Gagal menyimpan jadwal.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
                     }
                 },
                 error: function (xhr, status, error) {

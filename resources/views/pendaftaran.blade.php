@@ -235,10 +235,20 @@
         $('#form-pendaftaran').on('submit', function(event) {
             event.preventDefault();
 
+            Swal.fire({
+                title: 'Mohon tunggu...',
+                html: 'Sedang memproses data.', // Teks tambahan (opsional)
+                allowOutsideClick: false, // Mencegah klik di luar untuk menutup dialog
+                didOpen: () => {
+                    Swal.showLoading(); // Menampilkan animasi loading
+                }
+            });
+
             $('#btn-submit-pendaftaran').prop('disabled', true);
 
             // Jika form tidak valid, hentikan pengiriman data
             if (!this.checkValidity()) {
+                Swal.close();
                 $('#btn-submit-pendaftaran').prop('disabled', false);
                 return;
             }
@@ -252,6 +262,7 @@
                 contentType: false,
                 processData: false,
                 success: function(response) {
+                    Swal.close();
                     $('#btn-submit-pendaftaran').prop('disabled', false);
                     if (response.success == true) {
                         Swal.fire({
@@ -261,7 +272,7 @@
                             confirmButtonText: 'OK'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = "{{ url('/beranda') }}";
+                                window.location.href = "{{ url('/pasien/pendaftaran/riwayat') }}";
                             }
                         });
                     } else {
@@ -274,8 +285,8 @@
                     }
 
                 }, error : function(response) {
+                    Swal.close();
                     $('#btn-submit-pendaftaran').prop('disabled', false);
-                    console.log(response);
                 }
             });
         });

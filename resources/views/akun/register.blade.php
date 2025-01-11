@@ -1,5 +1,5 @@
 @extends('layout2')
-@section('title', 'Daftar Akun Admin')
+@section('title', 'Daftar Akun')
 @section('content')
 <div class="container mt-5 mb-5">
     <div class="container">
@@ -77,6 +77,15 @@
 
         // Add submit event listener to the form
         form.addEventListener('submit', function (event) {
+            Swal.fire({
+                title: 'Mohon tunggu...',
+                html: 'Sedang memproses data.', // Teks tambahan (opsional)
+                allowOutsideClick: false, // Mencegah klik di luar untuk menutup dialog
+                didOpen: () => {
+                    Swal.showLoading(); // Menampilkan animasi loading
+                }
+            });
+
             var password = $('#form-registrasi-akun #password').val();
             var passwordConfirmation = $('#form-registrasi-akun #confirm-password').val();
                         
@@ -85,6 +94,7 @@
                 event.preventDefault();
                 event.stopPropagation();
 
+                Swal.close();
                 // Show error if passwords do not match
                 if (password !== passwordConfirmation) {
                     Swal.fire({
@@ -112,6 +122,7 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
+                    Swal.close();
                     if (response.success === true) {
                         Swal.fire({
                             title: 'Berhasil!',
@@ -133,6 +144,7 @@
                     }
                 },
                 error: function (response) {
+                    Swal.close();
                     console.error(response);
                 }
             });

@@ -31,8 +31,13 @@ class pendaftaranController extends Controller
     }
     
     public function insert(Request $request) {
-        // dd($request->is_sendiri == "false" && $request->jumlah_pasien_lain > 0);
-        // dd($this->get_no_antrian());
+        
+        if (!$request->rencana_pemeriksaan) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Silakan pilih tanggal pemeriksaan.'
+            ]);
+        }
 
         // Menentukan tanggal yang diinginkan untuk pemeriksaan
         $tanggalPeriksa = Carbon::parse($request->rencana_pemeriksaan)->format('Y-m-d');

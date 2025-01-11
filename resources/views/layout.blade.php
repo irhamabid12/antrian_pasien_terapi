@@ -26,7 +26,7 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid mx-3">
              <!-- Logo dan Nama Pondok -->
-            <a class="navbar-brand d-flex align-items-center" href="{{url('/beranda')}}">
+            <a class="navbar-brand d-flex align-items-center" href="{{url('/pasien/beranda')}}">
               <img src="{{ asset('assets/images/logo.jpg') }}" alt="Logo" width="50" height="50" class="d-inline-block align-text-center p-1">
               <div class="ms-2 text-wrap">
                 <span class="fw-bold d-block fs-5 text-md-nowrap">Pondok Pengobatan</span>
@@ -40,7 +40,7 @@
             <div class="collapse navbar-collapse ms-auto" id="navbarNavDropdown">
                 <ul class="navbar-nav ms-auto fw-medium">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{url('/beranda')}}"><i class="bi bi-house-door-fill"></i> Beranda</a>
+                        <a class="nav-link active" aria-current="page" href="{{url('/pasien/beranda')}}"><i class="bi bi-house-door-fill"></i> Beranda</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('pasien/pendaftaran/index')}}" onclick="getAntrian()"><i class="bi bi-pencil-square"></i> Pendaftaran Pasien</a>

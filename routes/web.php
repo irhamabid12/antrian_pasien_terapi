@@ -16,7 +16,7 @@ Route::get('/', function () {
     return view('beranda');
 });
 
-Route::get('/beranda', function () {
+Route::get('/pasien/beranda', function () {
     return view('beranda');
 })->name('beranda');
 
