@@ -10,7 +10,9 @@ class KuotaController extends Controller
 {
     public function index()
     {
-        $data = KuotaJadwalOperasionalM::whereDate('tanggal', '>=', Carbon::now()->format('Y-m-d'))->get();
+        $data = KuotaJadwalOperasionalM::whereDate('tanggal', '>=', Carbon::now()->format('Y-m-d'))
+                ->orderBy('tanggal', 'desc')
+                ->get();
         
         return view('admin.kuota.index', compact('data'));
     }
@@ -38,6 +40,14 @@ class KuotaController extends Controller
             $jadwal->jumlah_kuota = $quota ?? 0;
             $jadwal->save();
         }
+
+        return response()->json(['success' => true]);
+    }
+
+    public function delete(Request $request)
+    {
+        $jadwal = KuotaJadwalOperasionalM::find($request->jadwal_id);
+        $jadwal->delete();
 
         return response()->json(['success' => true]);
     }

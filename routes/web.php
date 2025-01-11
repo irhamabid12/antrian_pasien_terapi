@@ -60,6 +60,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::prefix('kuota')->name('kuota.')->group(function () {
         Route::get('/index', [\App\Http\Controllers\KuotaController::class, 'index'])->name('index');
         Route::post('/simpan-jadwal', [\App\Http\Controllers\KuotaController::class, 'simpan_jadwal'])->name('simpan-jadwal');
+        Route::get('/delete', [\App\Http\Controllers\KuotaController::class, 'delete'])->name('delete');
     });
 });
 

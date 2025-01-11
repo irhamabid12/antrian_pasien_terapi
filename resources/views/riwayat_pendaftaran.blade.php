@@ -6,12 +6,12 @@
     <div class="container mt-3">
 
         <div class="card shadow mt-3">
-            <div class="card-body text-start p-5">
+            <div class="card-body text-start p-3">
                 <h4 class="card-title fw-bold mb-3 text-center">Riwayat Pendaftaran Pasien</h4>
                 @if ($data_riwayat->isEmpty() == false)
                     @foreach ($data_riwayat as $item)
                         <div class="card mb-3"> 
-                            <div class="card-body text-start">
+                            <div class="card-body text-start" style="overflow: auto">
                                 <table class="table" style="border-color: transparent">
                                     <tbody>
                                         <tr>
@@ -66,9 +66,10 @@
                                         </tbody>
                                     </table>
                                 @endif
-
+                            </div>
+                            <div class="card-footer">
                                 <div class="d-flex justify-content-end">
-                                    <a href="{{ route('pasien.pendaftaran.cetak-bukti-pendaftaran', ['pendaftaran_id' => $item->pendaftaran_id]) }}" target="_blank" class="btn btn-primary">Cetak Bukti Pendaftaran</a>
+                                    <a href="{{ route('pasien.pendaftaran.cetak-bukti-pendaftaran', ['pendaftaran_id' => $item->pendaftaran_id]) }}" target="_blank" class="btn btn-sm btn-primary"><i class="bi bi-file-earmark-pdf"></i> Cetak Bukti Pendaftaran</a>
                                 </div>
                             </div>
                         </div>

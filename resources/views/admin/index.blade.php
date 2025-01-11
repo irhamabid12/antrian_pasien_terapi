@@ -39,7 +39,7 @@
             </div>
             <div class="card-body text-center" style="overflow: auto">
                 <div class="row mb-3">
-                    <div class="col">
+                    <div class="col-12 col-md-6">
                         <div class="row">
                             <label for="cari_pasien" class="col-form-label fw-bold col-4 text-start">Nama Pasien</label>
                             <div class="col-8">
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-12 col-md-6">
                         <div class="row">
                             <label for="tgl_praktik" class="col-form-label fw-bold col-4 text-start">Tanggal Praktik</label>
                             <div class="col-8">

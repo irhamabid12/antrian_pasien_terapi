@@ -80,7 +80,7 @@ class pendaftaranController extends Controller
         } else {
             $insert->jumlah_pasien_lain = null;
         }
-        $insert->nomor_antrian = $this->get_no_antrian();
+        $insert->nomor_antrian = $this->get_no_antrian($tanggalPeriksa);
         $insert->status_periksa = "Dalam Antrian";
         $insert->created_at = Carbon::now();
         $insert->user_create_id = auth()->user()->id;
@@ -97,7 +97,7 @@ class pendaftaranController extends Controller
                 $insert_add->no_telp_pasien = $insert->no_telp_pasien ?? null;
         
                 // Generate nomor antrian baru untuk setiap pasien tambahan
-                $insert_add->nomor_antrian = $this->get_no_antrian(); 
+                $insert_add->nomor_antrian = $this->get_no_antrian($tanggalPeriksa); 
         
                 $insert_add->status_periksa = "Dalam Antrian";
                 $insert_add->created_at = Carbon::now();
@@ -114,8 +114,10 @@ class pendaftaranController extends Controller
         ]);
     }
 
-    public function get_no_antrian () {
-        $antrian = PendaftaranT::orderBy('pendaftaran_id', 'desc')->first();
+    public function get_no_antrian ($tanggal_periksa) {
+        $antrian = PendaftaranT::where('tanggal_periksa', $tanggalPeriksa)
+                ->orderBy('nomor_antrian', 'desc')
+                ->first();
 
         if ($antrian != null) {
             // Menambahkan 1 ke nomor antrian terakhir dan memastikan formatnya tiga digit

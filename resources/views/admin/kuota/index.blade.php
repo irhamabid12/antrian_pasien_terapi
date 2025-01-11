@@ -158,15 +158,15 @@
 
                  <!-- Input Rentang Tanggal -->
                 <div class="row mb-4">
-                    <div class="col-md-4">
+                    <div class="col-md-4 text-start my-3">
                         <label for="start_date" class="form-label fw-bold">Tanggal Mulai</label>
                         <input type="date" class="form-control" id="start_date" required>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 text-start my-3">
                         <label for="end_date" class="form-label fw-bold">Tanggal Selesai</label>
                         <input type="date" class="form-control" id="end_date" required>
                     </div>
-                    <div class="col-md-4 d-flex align-items-end">
+                    <div class="col-md-4 d-flex align-items-end my-3">
                         <button id="generate_schedule" class="btn btn-primary w-100">Buat Rencana Jadwal</button>
                     </div>
                 </div>
@@ -199,26 +199,32 @@
         <div class="card-header">
             <h5 class="card-title fw-bold">Jadwal Operasional</h5>
         </div>
-        <div class="card-body">
+        <div class="card-body" style="overflow: auto">
            <table class="table table-bordered table-striped text-center">
                <thead>
                    <tr>
-                       <th>Tanggal</th>
-                       {{-- <th>Hari</th> --}}
-                       <th>Kuota Pasien</th>
-                       <th>Operasional</th>
+                        <th>Tanggal</th>
+                        <th>Kuota Pasien</th>
+                        <th>Operasional</th>
+                        <th>Aksi</th>
                    </tr>
                </thead>
                <tbody>
-                   @foreach ($data as $item)
-                       <tr>
-                           <td>{{ !empty($item->tanggal) ? \Carbon\Carbon::parse($item->tanggal)->isoFormat('dddd, D MMMM Y') : '-' }}</td>
-                           {{-- <td>{{ $item->hari }}</td> --}}
-                           <td>{{ $item->jumlah_kuota }}</td>
-                           <td>{{ $item->operasional ? 'Buka' : 'Tutup' }}</td>
-                       </tr>
-                       
-                   @endforeach
+                    @if ($data->isEmpty() === false)
+                        @foreach ($data as $item)
+                        <tr>
+                            <td>{{ !empty($item->tanggal) ? \Carbon\Carbon::parse($item->tanggal)->isoFormat('dddd, D MMMM Y') : '-' }}</td>
+                            <td>{{ $item->jumlah_kuota }}</td>
+                            <td>{{ $item->operasional ? 'Buka' : 'Tutup' }}</td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="deleteSchedule({{ $item->jadwal_id }})" ><i class="fa fa-trash"></i> Hapus</button>
+                            </td>
+                        </tr>
+                        
+                        @endforeach
+                    @else
+                        <tr><td colspan="4" class="text-center">Tidak ada data jadwal</td></tr>
+                    @endif
                </tbody>
            </table>
         </div>
@@ -271,27 +277,6 @@
                     alert('Terjadi kesalahan.');
                 }
             });
-        //     fetch('/admin/kuota/simpan-jadwal', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        //         },
-        //         body: JSON.stringify({ schedule: scheduleData })
-        //     })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         if (data.success) {
-        //             alert('Jadwal berhasil disimpan.');
-        //             location.reload();
-        //         } else {
-        //             alert('Gagal menyimpan jadwal.');
-        //         }
-        //     })
-        //     .catch(error => {
-        //         console.error('Error:', error);
-        //         alert('Terjadi kesalahan.');
-        //     });
         });
 
     </script>
@@ -352,6 +337,38 @@
             // Tampilkan tabel
             scheduleContainer.classList.remove('d-none');
         });
+
+        function deleteSchedule(id) {
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Apakah Anda yakin ingin menghapus jadwal ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '{{ route('admin.kuota.delete') }}',
+                        method: 'get',
+                        data: { 
+                            jadwal_id: id 
+                        },
+                        success: function (response) {
+                            if (response.success) {
+                                location.reload();
+                            } else {
+                                alert('Gagal menghapus jadwal.');
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error:', error);
+                            alert('Terjadi kesalahan.');
+                        }
+                    });
+                }
+            });
+        }
 
     </script>
 
