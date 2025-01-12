@@ -14,7 +14,7 @@ class masterController extends Controller
         // Ambil semua data yang diperlukan dalam satu query
         $dataPasien = PendaftaranT::where('status_periksa', '!=', 'Sudah Diperiksa')
             ->whereDate('tanggal_periksa', $today)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('nomor_antrian', 'asc')
             ->get();
 
         // Hitung jumlah pasien dan ambil antrian terakhir
