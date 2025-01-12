@@ -44,6 +44,13 @@
                                                     Password harus diisi!
                                                 </div>
                                             </div>
+
+                                            <!-- Menampilkan pesan error jika ada -->
+                                            @if ($errors->has('error'))
+                                                <div class="alert alert-danger">
+                                                    {{ $errors->first('error') }}
+                                                </div>
+                                            @endif
                 
                                             <div class="d-flex align-items-center">
                                                 <button type="submit" class="btn btn-primary ms-auto">
