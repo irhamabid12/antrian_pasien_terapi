@@ -41,6 +41,8 @@ class BerandaAdminController extends Controller
         
         $update = PendaftaranT::where('pendaftaran_id', $request->pendaftaran_id)->first();
         $update->status_periksa = $request->status_periksa == "Dalam Antrian" ? "Sedang Diperiksa" : "Sudah Diperiksa";
+        $update->updated_at = Carbon::now();
+        $update->user_update_id = auth()->user()->id;
         $update->save();
     
         return response()->json([

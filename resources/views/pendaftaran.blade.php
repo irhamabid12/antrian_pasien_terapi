@@ -150,7 +150,7 @@
                             </div>
 
                             <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="submit" id="btn-submit-pendaftaran" class="btn btn-primary">Simpan</button>
                             </div>
                         </form>
                     </div>

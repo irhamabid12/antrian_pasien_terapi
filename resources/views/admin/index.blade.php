@@ -15,7 +15,7 @@
                         <br>
                         <span class="col-12 fw-bold" style="font-size: 50px;" id="antrian_pasien">0</span>
                         <br>
-                        <h4 class="col-12">Nomor Antrian Sekarang</h4>
+                        <h4 class="col-12">Total Antrian</h4>
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                 method: "GET",
                 dataType: "JSON",
                 success: function(response) {
-                    $('#antrian_pasien').text(response.last_antrian ?? 0);
+                    $('#antrian_pasien').text(response.all_pasien ?? 0);
                     $('#jumlah_pasien').text(response.jumlah_pasien ?? 0);
                 }
             });
