@@ -67,6 +67,23 @@ class pendaftaranController extends Controller
                 'message' => 'Kuota sudah penuh untuk tanggal tersebut. Silakan pilih tanggal yang lain.'
             ]);
         }
+
+        # cek agar tidak ada pasien yang double
+        $cekPasien = PendaftaranT::where('tanggal_periksa', $tanggalPeriksa)->where('status_periksa', 'Dalam Antrian');
+        
+        if ($request->is_sendiri == true) {
+            $cekPasien->where('nama_pasien', $request->nama_pasien);
+            $cekPasien->where('no_telp_pasien', $request->no_wa);
+        }
+
+        $cekPasien = $cekPasien->first();
+
+        if ($cekPasien) {
+            return response()->json([
+                'success' => false,
+                'message' => "Pasien atas nama " .$request->nama_pasien. " sudah terdaftar pada tanggal "  . Carbon::parse($tanggalPeriksa)->format('d-m-Y') . "."
+            ]);
+        }
         
         $insert = PendaftaranT::find($request->pendaftaran_id ?? null) ?? new PendaftaranT;
         $insert->nama_pasien = $request->nama_pasien ?? null;

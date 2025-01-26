@@ -40,10 +40,10 @@
             <div class="collapse navbar-collapse ms-auto" id="navbarNavDropdown">
                 <ul class="navbar-nav ms-auto fw-medium">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{url('/pasien/beranda')}}"><i class="bi bi-house-door-fill"></i> Beranda</a>
+                        <a class="nav-link" aria-current="page" onclick="getAntrian()" href="{{url('/pasien/beranda')}}"><i class="bi bi-house-door-fill"></i> Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('pasien/pendaftaran/index')}}" onclick="getAntrian()"><i class="bi bi-pencil-square"></i> Pendaftaran Pasien</a>
+                        <a class="nav-link" href="{{url('pasien/pendaftaran/index')}}"><i class="bi bi-pencil-square"></i> Pendaftaran Pasien</a>
                     </li>
                     
                     @auth

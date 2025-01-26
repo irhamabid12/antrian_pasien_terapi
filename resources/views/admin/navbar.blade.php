@@ -15,7 +15,7 @@
         <div class="collapse navbar-collapse ms-auto" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto fw-medium">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{url('/admin/beranda/index')}}"><i class="bi bi-house-door-fill"></i> Beranda</a>
+                    <a class="nav-link" aria-current="page" href="{{url('/admin/beranda/index')}}"><i class="bi bi-house-door-fill"></i> Beranda</a>
                 </li>
                 {{-- <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{url('/admin/kuota/index')}}"><i class="bi bi-gear-fill"></i> Kuota Pasien dan Jadwal Operasional</a>

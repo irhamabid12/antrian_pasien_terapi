@@ -277,7 +277,7 @@
                         });
                     } else {
                         Swal.fire({
-                            title: '<h2>Opss!</h2>',
+                            title: '<h2>Opss!</h2><br><h2>Pendaftaran gagal</h2>',
                             text: response.message,
                             icon: 'info',
                             confirmButtonText: 'OK'
