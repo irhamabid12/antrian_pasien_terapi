@@ -1,33 +1,33 @@
-@extends('layout2')
-@section('title', 'Beranda')
+@extends('layout')
+@section('title', 'Daftar Pasien')
 
 @section('content')
     
-    @include('admin.navbar')
+    {{-- @include('admin.navbar') --}}
 
-    <div class="container mt-3">
-        <div class="row">
-            <div class="col">
-                <div class="card shadow"
-                    style="background: linear-gradient(to right, #4caf50, #81c784); position: relative; overflow: hidden;">
-                    <div class="card-body text-white text-center">
-                        <i class="bi bi-ticket-perforated display-5"></i>
-                        <br>
-                        <span class="col-12 fw-bold" style="font-size: 50px;" id="antrian_pasien">0</span>
-                        <br>
-                        <h4 class="col-12">Total Antrian</h4>
+    <div class="container-fluid mt-3">
+        <div class="card card-body shadow">
+            <div class="row">
+                <div class="col">
+                    <div class="card shadow bg-success bg-gradient border-0">
+                        <div class="card-body text-white text-center">
+                            <i class="bi bi-ticket-perforated display-5"></i>
+                            <br>
+                            <span class="col-12 fw-bold" style="font-size: 50px;" id="antrian_pasien">0</span>
+                            <br>
+                            <h4 class="col-12">Total Antrian</h4>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card shadow"
-                    style="background: linear-gradient(to right, #1b236e, #5963b4); position: relative; overflow: hidden;">
-                    <div class="card-body text-white text-center">
-                        <i class="bi bi-person-vcard display-5"></i>
-                        <br>
-                        <span class="col-12 fw-bold" style="font-size: 50px;" id="jumlah_pasien">0</span>
-                        <br>
-                        <h4 class="col-12">Jumlah Pasien</h4>
+                <div class="col">
+                    <div class="card shadow bg-primary bg-gradient border-0">
+                        <div class="card-body text-white text-center">
+                            <i class="bi bi-person-vcard display-5"></i>
+                            <br>
+                            <span class="col-12 fw-bold" style="font-size: 50px;" id="jumlah_pasien">0</span>
+                            <br>
+                            <h4 class="col-12">Jumlah Pasien</h4>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -63,8 +63,9 @@
                                 <th width="5%">No</th>
                                 <th>Nama</th>
                                 <th>No. Antrian</th>
-                                <th>No Wa</th>
-                                <th>Jumlah Pasien</th>
+                                <th>No. Telp</th>
+                                <th>Alamat</th>
+                                <th>Keluhan</th>
                                 <th>Tlg. Pendaftaran</th>
                                 <th>Tgl. Rencana Periksa</th>
                                 <th>Status Pasien</th>
@@ -160,13 +161,18 @@
                                     <td>${item.nama_pasien ?? '-'}</td>
                                     <td>${item.nomor_antrian ?? '-'}</td>
                                     <td>${item.no_telp_pasien ?? '-'}</td>
-                                    <td>${item.is_pasien_sendiri == true ? '1' : (item.jumlah_pasien_lain ?? '0')}</td>
+                                    <td>${item.alamat_pasien ?? '-'}</td>
+                                    <td>${item.keluhan_pasien ?? '-'}</td>
                                     <td>${item.created_at != null ? formatDateTime(item.created_at) : '-'}</td>
                                     <td>${item.tanggal_periksa != null ? formatDate(item.tanggal_periksa) : '-'}</td>
                                     <td>${item.status_pasien == true ? 'Baru' : 'Kontrol'}</td>
                                     <td>${item.status_periksa ?? '-'}</td>
                                     <td>
-                                        <button onclick="updateStatusPemeriksaan(${item.pendaftaran_id}, '${item.status_periksa}')" class="btn btn-sm ${item.status_periksa == "Dalam Antrian" ? 'btn-primary' : 'btn-danger'}">${item.status_periksa == "Dalam Antrian" ? 'Mulai Periksa' : 'Selesai Periksa'}</a>
+                                        <div class="btn-group">
+                                            <button onclick="updateStatusPemeriksaan(${item.pendaftaran_id}, '${item.status_periksa}')" class="btn btn-sm ${item.status_periksa == "Dalam Antrian" ? 'btn-primary' : 'btn-success'}">${item.status_periksa == "Dalam Antrian" ? 'Mulai Periksa' : 'Selesai Periksa'}</button> 
+                                            <button onclick="cetakBuktiPendaftaran(${item.pendaftaran_id})" class="btn btn-sm btn-info" title="Cetak Bukti Pendaftaran"><i class="bi bi-file-earmark-pdf text-white"></i></button>
+                                            <button onclick="hapusPendaftaran(${item.pendaftaran_id})" class="btn btn-sm btn-danger" title="Hapus Pendaftaran"><i class="bi bi-trash"></i></button>
+                                        </div> 
                                     </td>
                                 </tr>
                             `);

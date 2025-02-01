@@ -1,10 +1,10 @@
-@extends('layout2')
+@extends('layout')
 @section('title', 'Kuota Pasien dan Jadwal Operasional')  
 
 @section('content')
-    @include('admin.navbar')
+    {{-- @include('admin.navbar') --}}
    
-    <div class="container mt-3">
+    <div class="container-fluid mt-3">
         <div class="card shadow mt-3 ">
             <div class="card-header">
                 <h5 class="card-title fw-bold">Pengaturan Jadwal Operasional</h5>

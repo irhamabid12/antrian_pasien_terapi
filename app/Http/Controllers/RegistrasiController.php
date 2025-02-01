@@ -18,7 +18,7 @@ class RegistrasiController extends Controller
         $regis->name = $request->name ?? null;
         $regis->username = $request->username ?? null;
         $regis->password = Hash::make($request->password ?? null);
-        $regis->role = $request->role ?? 'admin';
+        $regis->role = $request->role ?? null;
         $regis->is_active = true;
         $regis->save();
         

@@ -6,8 +6,11 @@ use Carbon\Carbon;
 use App\Models\PendaftaranT;
 use Illuminate\Http\Request;
 
-class masterController extends Controller
+class MasterController extends Controller
 {
+    public function index() {
+        return view('master.user.index');
+    }
     public function get_antrian() {
         $today = Carbon::today();
 

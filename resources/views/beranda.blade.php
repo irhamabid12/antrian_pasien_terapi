@@ -1,30 +1,30 @@
 @extends('layout')
-@section('title', 'Beranda')
+@section('title', 'Beranda Pasien')
 
 @section('content')
-    <div class="container mt-3">
-        <div class="row">
-            <div class="col">
-                <div class="card shadow"
-                    style="background: linear-gradient(to right, #4caf50, #81c784); position: relative; overflow: hidden;">
-                    <div class="card-body text-white text-center">
-                        <i class="bi bi-ticket-perforated display-5"></i>
-                        <br>
-                        <span class="col-12 fw-bold" style="font-size: 50px;" id="antrian_pasien">0</span>
-                        <br>
-                        <h4 class="col-12">Total Antrian</h4>
+    <div class="container-fluid mt-3">
+        <div class="card card-body shadow">
+            <div class="row">
+                <div class="col">
+                    <div class="card shadow bg-success bg-gradient border-0">
+                        <div class="card-body text-white text-center">
+                            <i class="bi bi-ticket-perforated display-5"></i>
+                            <br>
+                            <span class="col-12 fw-bold" style="font-size: 50px;" id="antrian_pasien">0</span>
+                            <br>
+                            <h4 class="col-12">Total Antrian</h4>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card shadow"
-                    style="background: linear-gradient(to right, #1b236e, #5963b4); position: relative; overflow: hidden;">
-                    <div class="card-body text-white text-center">
-                        <i class="bi bi-person-vcard display-5"></i>
-                        <br>
-                        <span class="col-12 fw-bold" style="font-size: 50px;" id="jumlah_pasien">0</span>
-                        <br>
-                        <h4 class="col-12">Jumlah Pasien</h4>
+                <div class="col">
+                    <div class="card shadow bg-primary bg-gradient border-0">
+                        <div class="card-body text-white text-center">
+                            <i class="bi bi-person-vcard display-5"></i>
+                            <br>
+                            <span class="col-12 fw-bold" style="font-size: 50px;" id="jumlah_pasien">0</span>
+                            <br>
+                            <h4 class="col-12">Jumlah Pasien</h4>
+                        </div>
                     </div>
                 </div>
             </div>

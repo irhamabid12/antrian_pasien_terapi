@@ -3,11 +3,12 @@
 
 
 @section('content')
-    <div class="container mt-3">
+    <div class="container-fluid mt-3">
 
         <div class="card shadow mt-3">
-            <div class="card-body text-start p-5">
+            <div class="card-body text-start p-1">
                 <h4 class="card-title fw-bold mb-3 text-center">Pendaftaran Pasien</h4>
+                <hr>
                 {{-- <div class="card mb-3" style="outline: 3px dashed rgb(165, 165, 0); border-radius: 10px;">
                     <div class="card-body text-dark d-flex align-items-center" style="background-color: rgb(226, 226, 114);">
                         <i class="bi bi-exclamation-circle-fill me-2" style="font-size: 1.5rem;"></i>
@@ -21,7 +22,7 @@
                     <div class="card-header">
                         <h5 class="card-title fw-bold">Data Pasien</h5>
                     </div>
-                    <div class="card-body text-start">
+                    <div class="card-body text-start overflow-auto">
                         <table class="table table-bordered table-striped">
                             <tbody>
                                 <tr>

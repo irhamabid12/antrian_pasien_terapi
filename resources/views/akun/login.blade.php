@@ -9,24 +9,25 @@
             <div class="col-12">
                 <div class="card shadow-lg">
                     <div class="card-body p-3">
-                        <div class="row">
-                            <div class="col-12 col-md-6 my-5 text-center">
-                                <h4 class="fw-bold mb-4">Pondok Pengobatan Gus Arya</h4>
+                        <div class="row g-2 d-flex align-items-center">
+                            <div class="col-12 col-md-6 my-5 text-center px-5">
+                                <h4 class="fw-bold mb-4">Sistem Informasi Pendaftaran Pasien <br> Pondok Pengobatan Gus Arya</h4>
                                 <img src="{{ asset('assets\images\logo.jpg') }}" alt="logo" width="150" height="150">
                                 <p class="card-text mt-3">
                                     <strong>Alamat:</strong> <br>Desa krompeng RT 03/02, Kecamatan Talun, kabupaten Pekalongan.<br>
                                     <strong>Informasi/Konsultasi:</strong><br> 0856-7223-499<br>
                                 </p>
                             </div>
-                            <div class="col-12 col-md-6 my-5">
-                                <div class="card shadow">
+                            <div class="col-12 col-md-6 my-5 px-3">
+                                <div class="card">
                                     <div class="card-body">
-                                        <h1 class="fs-4 card-title fw-bold mb-4">Login</h1>
+                                        <h1 class="fs-4 card-title fw-bold">Selamat Datang!</h1>
+                                        <p class="card-text fw-semibold mb-4">Silahkan masukkan username dan password Anda untuk login.</p>
                                         <form method="POST" class="needs-validation" novalidate="" autocomplete="off" id="form-login-admin" action="{{ route('action-login') }}">
                                             @csrf
                                             <div class="mb-3">
                                                 <label class="mb-2 text-muted" for="email">Username</label>
-                                                <input id="username" type="text" class="form-control" name="username" value="" required>
+                                                <input id="username" type="text" class="form-control" name="username" placeholder="Masukkan username" required>
                                                 <div class="invalid-feedback">
                                                     Username harus diisi!
                                                 </div>
@@ -39,7 +40,7 @@
                                                         Lupa Password?
                                                     </a> --}}
                                                 </div>
-                                                <input id="password" type="password" class="form-control" name="password" required>
+                                                <input id="password" type="password" class="form-control" name="password" placeholder="Masukkan password" required>
                                                 <div class="invalid-feedback">
                                                     Password harus diisi!
                                                 </div>

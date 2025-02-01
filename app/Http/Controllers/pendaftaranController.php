@@ -71,14 +71,14 @@ class pendaftaranController extends Controller
         # cek agar tidak ada pasien yang double
         $cekPasien = PendaftaranT::where('tanggal_periksa', $tanggalPeriksa)->where('status_periksa', 'Dalam Antrian');
         
-        if ($request->is_sendiri == true) {
-            $cekPasien->where('nama_pasien', $request->nama_pasien);
-            $cekPasien->where('no_telp_pasien', $request->no_wa);
-        }
+        $cekPasien->where('nama_pasien', 'like', '%' . $request->nama_pasien . '%')
+                ->where('no_telp_pasien', $request->no_wa);
 
-        $cekPasien = $cekPasien->first();
+        $cekPasien = $cekPasien->exists();
 
-        if ($cekPasien) {
+        // dd($cekPasien);
+
+        if ($cekPasien == true) {
             return response()->json([
                 'success' => false,
                 'message' => "Pasien atas nama " .$request->nama_pasien. " sudah terdaftar pada tanggal "  . Carbon::parse($tanggalPeriksa)->format('d-m-Y') . "."
@@ -155,5 +155,21 @@ class pendaftaranController extends Controller
         ]);
 
         return $pdf->stream('bukti-pendaftaran.pdf');
+    }
+
+    public function batalPendaftaran (Request $request) {
+        $pendaftaran = PendaftaranT::where('pendaftaran_id', $request->pendaftaran_id)->exists();
+
+        if ($pendaftaran) {
+            PendaftaranT::where('pendaftaran_id', $request->pendaftaran_id)->delete();
+            
+            return response()->json([
+                'success' => true
+            ]);
+        } else {
+            return response()->json([
+                'success' => false
+            ]);
+        }
     }
 }

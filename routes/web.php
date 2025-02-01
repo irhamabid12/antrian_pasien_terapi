@@ -33,6 +33,7 @@ Route::prefix('pasien')->name('pasien.')->middleware('auth')->group(function () 
         Route::post('/insert', [\App\Http\Controllers\pendaftaranController::class, 'insert'])->name('insert');
         Route::get('/riwayat', [\App\Http\Controllers\pendaftaranController::class, 'riwayat'])->name('riwayat');
         Route::get('/cetak-bukti-pendaftaran', [\App\Http\Controllers\pendaftaranController::class, 'cetakBuktiPendaftaran'])->name('cetak-bukti-pendaftaran');
+        Route::get('/batal-pendaftaran', [\App\Http\Controllers\pendaftaranController::class, 'batalPendaftaran'])->name('batal-pendaftaran');
     });
 });
 
@@ -50,6 +51,14 @@ Route::post('/action-login', [\App\Http\Controllers\LoginController::class, 'act
 
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/logout', [\App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
+    
+    Route::prefix('dashboard')->name('dashboard.')->group(function () {
+        Route::get('/index', [\App\Http\Controllers\DashboardController::class, 'index'])->name('index');
+        Route::get('/chart-data', [\App\Http\Controllers\DashboardController::class, 'chart_data'])->name('chart-data');
+        Route::get('/count-pasien', [\App\Http\Controllers\DashboardController::class, 'jumlah_pasien'])->name('count-pasien');
+        Route::get('/load-table-pasien', [\App\Http\Controllers\DashboardController::class, 'load_table_pasien'])->name('load-table-pasien');
+        Route::get('/print-pdf', [\App\Http\Controllers\DashboardController::class, 'print_pdf'])->name('print-pdf');
+    });
 
     Route::prefix('beranda')->name('beranda.')->group(function () {
         Route::get('/index', [\App\Http\Controllers\BerandaAdminController::class, 'index'])->name('index');
@@ -62,10 +71,19 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         Route::post('/simpan-jadwal', [\App\Http\Controllers\KuotaController::class, 'simpan_jadwal'])->name('simpan-jadwal');
         Route::get('/delete', [\App\Http\Controllers\KuotaController::class, 'delete'])->name('delete');
     });
+
+    Route::prefix('master')->name('master.')->group(function () {
+        Route::get('/index', [\App\Http\Controllers\MasterController::class, 'index'])->name('index');
+
+    });
+
+    Route::prefix('product')->name('product.')->group(function () {
+        Route::get('/index', [\App\Http\Controllers\MasterController::class, 'index'])->name('index');
+    });
 });
 
 
 
 
-Route::get('/get_antrian', [\App\Http\Controllers\masterController::class, 'get_antrian'])->name('get_antrian');
+Route::get('/get_antrian', [\App\Http\Controllers\MasterController::class, 'get_antrian'])->name('get_antrian');
 

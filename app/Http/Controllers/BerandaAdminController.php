@@ -31,7 +31,7 @@ class BerandaAdminController extends Controller
         $data = $data->where('status_periksa', '!=', 'Sudah Diperiksa');
         
         $data = $data->get();
-    
+        
         return response()->json([
             'data' => $data
         ]);
