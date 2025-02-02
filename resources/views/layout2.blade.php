@@ -4,7 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title')</title>
+    <meta name="description" content="Pondok Pengobatan Gus Arya - salah satu pondok pengobatan alternatif di Indonesia.">
+    <meta name="keywords" content="Pondok Pengobatan Gus Arya, Pondok Pengobatan Alternatif, Pengobatan Alternatif, Pengobatan Alternatif Indonesia, Pondok Pengobatan Alternatif Indonesia, Pondok Pengobatan, Pengobatan, Pengobatan Alternatif kabupaten Pekalongan">
+    <meta name="author" content="Aitech Indonesia">
+    <title>@yield('title', 'Nama Perusahaan')</title>
+    <title>@yield('title', 'Nama Perusahaan')</title>
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('assets/images/logo.jpg') }}" type="image/x-icon">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">

@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Beranda Pasien')
+@section('title', 'Beranda Pasien | Pondok Pengobatan Gus Arya')
 
 @section('content')
     <div class="container-fluid mt-3">

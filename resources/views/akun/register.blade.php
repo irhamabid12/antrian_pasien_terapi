@@ -1,5 +1,5 @@
 @extends('layout2')
-@section('title', 'Daftar Akun')
+@section('title', 'Daftar Akun | Pondok Pengobatan Gus Arya')
 @section('content')
 <div class="container mt-5 mb-5">
     <div class="container">

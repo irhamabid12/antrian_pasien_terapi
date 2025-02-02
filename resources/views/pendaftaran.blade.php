@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Pendaftaran Pasien')
+@section('title', 'Pendaftaran Pasien | Pondok Pengobatan Gus Arya')
 
 
 @section('content')

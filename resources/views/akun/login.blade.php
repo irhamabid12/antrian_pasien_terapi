@@ -1,6 +1,6 @@
 @extends('layout2')
 
-@section('title', 'Login')
+@section('title', 'Login | Pondok Pengobatan Gus Arya')
 @section('content')
 <div class="container">
 

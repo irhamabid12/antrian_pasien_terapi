@@ -21,9 +21,10 @@ Route::get('/pasien/beranda', function () {
 })->name('beranda');
 
 
-// Route::get('/pendaftaran', function () {
-//     return view('pendaftaran');
-// })->name('pendaftaran');
+Route::prefix('akun')->name('akun.')->middleware('auth')->group(function () {
+    Route::post('/change-password', [\App\Http\Controllers\LoginController::class, 'changePassword'])->name('change-password');
+});
+
 
 Route::prefix('pasien')->name('pasien.')->middleware('auth')->group(function () {
     Route::get('/logout', [\App\Http\Controllers\LoginController::class, 'logoutPasien'])->name('logout');

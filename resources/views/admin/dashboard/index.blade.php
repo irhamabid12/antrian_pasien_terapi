@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Dashboard')
+@section('title', 'Dashboard | Pondok Pengobatan Gus Arya')
 
 @section('content')
     <style>

@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Kuota Pasien dan Jadwal Operasional')  
+@section('title', 'Kuota Pasien dan Jadwal Operasional | Pondok Pengobatan Gus Arya')  
 
 @section('content')
     {{-- @include('admin.navbar') --}}
