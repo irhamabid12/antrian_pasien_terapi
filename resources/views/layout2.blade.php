@@ -8,7 +8,6 @@
     <meta name="keywords" content="Pondok Pengobatan Gus Arya, Pondok Pengobatan Alternatif, Pengobatan Alternatif, Pengobatan Alternatif Indonesia, Pondok Pengobatan Alternatif Indonesia, Pondok Pengobatan, Pengobatan, Pengobatan Alternatif kabupaten Pekalongan">
     <meta name="author" content="Aitech Indonesia">
     <title>@yield('title', 'Nama Perusahaan')</title>
-    <title>@yield('title', 'Nama Perusahaan')</title>
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('assets/images/logo.jpg') }}" type="image/x-icon">
 

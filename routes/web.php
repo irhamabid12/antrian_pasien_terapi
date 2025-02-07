@@ -44,7 +44,6 @@ Route::get('/login', function () {
 
 Route::prefix('registrasi')->name('registrasi.')->group(function () {
     Route::get('/index', [\App\Http\Controllers\RegistrasiController::class, 'index'])->name('index');
-    Route::post('/insert', [\App\Http\Controllers\RegistrasiController::class, 'insert'])->name('insert');
     Route::post('/registrasiAkunPasien', [\App\Http\Controllers\RegistrasiController::class, 'registrasiAkunPasien'])->name('registrasiAkunPasien');
 });
 
@@ -75,11 +74,18 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     Route::prefix('master')->name('master.')->group(function () {
         Route::get('/index', [\App\Http\Controllers\MasterController::class, 'index'])->name('index');
-
+        Route::get('/load-table', [\App\Http\Controllers\MasterController::class, 'load_table'])->name('load-table');
+        Route::post('/add-new-admin', [\App\Http\Controllers\RegistrasiController::class, 'insert'])->name('add-new-admin');
+        Route::get('/delete-user-admin', [\App\Http\Controllers\RegistrasiController::class, 'deleteAdmin'])->name('delete-user-admin');
     });
 
     Route::prefix('product')->name('product.')->group(function () {
-        Route::get('/index', [\App\Http\Controllers\MasterController::class, 'index'])->name('index');
+        Route::get('/index', [\App\Http\Controllers\ProductController::class, 'index'])->name('index');
+        Route::post('/insert', [\App\Http\Controllers\ProductController::class, 'insert'])->name('insert');
+        Route::get('/load-table', [\App\Http\Controllers\ProductController::class, 'load_table'])->name('load-table');
+        Route::get('/edit', [\App\Http\Controllers\ProductController::class, 'edit'])->name('edit');
+        Route::get('/delete', [\App\Http\Controllers\ProductController::class, 'delete'])->name('delete');
+        Route::post('/checkout', [\App\Http\Controllers\ProductController::class, 'checkout'])->name('checkout');
     });
 });
 

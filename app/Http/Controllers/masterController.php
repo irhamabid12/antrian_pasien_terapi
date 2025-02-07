@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\PendaftaranT;
 use Illuminate\Http\Request;
 
@@ -31,5 +32,15 @@ class MasterController extends Controller
             'all_pasien' => $all_pasien ?? 0,
             'jumlah_pasien' => $jumlah_pasien,
         ]);
+    }
+
+    public function load_table (Request $request) {
+        $data = User::select('id', 'name', 'username', 'role', 'created_at')->get();
+        
+        foreach ($data as $key => $value) {
+            $value->tanggaldaftar = Carbon::parse($value->created_at)->isoFormat('dddd, D MMMM Y HH:mm');
+        }
+        // dd($data);
+        return response()->json($data);
     }
 }

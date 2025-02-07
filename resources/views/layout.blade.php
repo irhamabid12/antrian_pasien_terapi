@@ -69,16 +69,15 @@
                  <!-- Logo dan Nama Pondok -->
                 <a class="navbar-brand d-flex align-items-center" href="{{url('/pasien/beranda')}}">
                   <img src="{{ asset('assets/images/logo.jpg') }}" alt="Logo" width="50" height="50" class="d-inline-block align-text-center p-1">
-                  <div class="ms-2 text-wrap">
-                    <span class="fw-bold d-block fs-5 text-md-nowrap p-0">PONDOK PENGOBATAN GUS ARYA</span>
-                    {{-- <span class="fw-bold d-block fs-5 p-0"></span> --}}
+                  <div class="mx-2 text-wrap ">
+                    <h2 class="fw-bold d-block fs-5 p-0">Pendaftaran Online Pondok Pengobatan Gus Arya</h2>
                   </div>
                 </a>
                 {{-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                     aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button> --}}
-                <div class="px-3">
+                <div class="">
                     <ul class="navbar-nav me-auto fw-medium d-flex ">
                         {{-- <li class="nav-item">
                             <a class="nav-link" aria-current="page" onclick="getAntrian()" href="{{url('/pasien/beranda')}}"><i class="bi bi-house-door-fill"></i> Beranda</a>
